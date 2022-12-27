@@ -1,0 +1,56 @@
+{% extends 'base.html'%}
+{% block content %}
+
+<div class="card p-3 m-5" style="width: 80%;height: auto;display:-webkit-inline-box;border: none;">
+  <div class="card" style="width: 40%;">
+    <img src="{{ post.post.url }}" style="width:auto">
+  </div>
+
+  <div class="card mx-3 " style="width:55%;">
+    <div class="row justify-content-evenly">
+      <div class="col-4">
+        <button data-bs-toggle="modal" data-bs-target="#staticBackdropcomment" class="btn btn-outline-secondary m-3" style="width: 150px;">
+          Comment <i class="fas fa-comment-alt-lines"></i></button>
+      </div>
+      <div class="col-4">
+        <p class="sm my-3"> <strong>{{ post.like }}</strong> likes</p>
+      </div>
+    </div>
+    
+      
+
+      {% for x in postcomment %}
+    <div class="card m-1" style="border-radius:50px;background-color: #c2c5aa;color: #333d29;">
+    <p class="p-1 m-0"> <strong>{{x.user}} :</strong> {{ x.comment }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+<!-- comment modal -->
+<div class="modal fade" id="staticBackdropcomment" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+      <div class="modal-header">
+      <h1 class="modal-title fs-5" id="staticBackdropLabel">comment on the post</h1>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="{% url 'add_comment' post.id %}" method="POST">
+      {% csrf_token %}
+      <div class="modal-body">
+        <label for="exampleFormControlTextarea5" class="form-label">comment</label>
+        <textarea name="comment" class="form-control" style="max-height: 150px;" id="exampleFormControlTextarea5" rows="3"></textarea>                          
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+        <button type="submit" class="btn btn-success ">comment</button>
+      </div>
+      </form>
+      </div>
+    </div>
+  </div>
+
+
+
+{% endblock %}

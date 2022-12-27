@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <title>index</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg " style="background-color: #e6e6e9;">
+        <div class="container-fluid px-5">
+            <a class="navbar-brand px-3" href="#">TEST-GRAM</a>
+            <form action="{% url 'search' %}" method="GET" class="d-flex" style="margin: auto;" role="search">
+                <input class="form-control me-2" type="search" name="keyword" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-secondary btn-sm" type="submit">Search</button>
+            </form>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav px-5">
+                    <li class="nav-item px-3">
+                        <a class="nav-link" style="font-size:x-large;" href="{% url 'index' %}"><i class="far fa-home-lg-alt"></i>
+                            <p style="font-size:x-small">Home</p></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="font-size:x-large;" href="C:\Users\USER\bootstrap\message.html"><i class="fal fa-envelope"></i>
+                            <p style="font-size:x-small">Chat</p></a>
+                    </li>
+                    <li class="nav-item px-3">
+                        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="font-size:x-large;"  href="#"><i class="far fa-photo-video"></i>
+                            <p style="font-size:x-small">Upload</p></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="font-size:x-large;"  href="#"><i class="far fa-video"></i>
+                            <p style="font-size:x-small">Explore</p></a>
+                    </li>
+                    <li class="nav-item px-3">
+                        <a class="nav-link" style="font-size:x-large;"  href="#"><i class="fas fa-heart"></i>
+                            <p style="font-size:x-small">Notification</p></a>
+                    </li>
+                    <li class="nav-item" style="padding-top: 10px;">
+                        <div class="dropdown">
+                            <a class="btn btn-outline-secondary btn-sm dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                               <i class="fas fa-user-alt"></i></a>
+                            </a><p style="font-size:small ;">Welcome {{user.first_name}}</p>
+                            <ul class="dropdown-menu">
+                                {% if user.is_authenticated %}
+                              <li><a class="dropdown-item" href="{% url 'profile' user.id %}">Profile</a></li>
+                              <li><a class="dropdown-item" href="#">Saved</a></li>
+                              <li><a class="dropdown-item" href="{% url 'setting' %}">Settings</a></li>
+                              <li><a class="dropdown-item" href="#">Report a problem</a></li>
+                              <li><a class="dropdown-item" href="#">Switch accounts</a></li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="dropdown-item" href="{% url 'signout' %}">Log out</a></li>
+                                {% else %}
+                            <li><a class="dropdown-item" href="{% url 'signup' %}">Log in</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <script>
+       
+    </script>
+
+    {% block content %}
+
+
+
+    {% endblock %}
+
+
+<!-- footer -->
+<div class="border-top px-3 my-4">
+    <div class="card-header text-center">
+        <i class="fal fa-copyright"></i>
+        <p>aromalsathesh-test-socialmedia</p>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<!-- status bar -->
+    <!-- <div class="card" style="width: 40%;margin-left: 20%;margin-top: 20px;">
+        <div class="card-body row">
+            <div class="col">
+               <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" width="60px" style="border-radius: 50px;">
+               <p class="px-3" style="font-size:smaller">user</p>
+            </div>
+            <div class="col">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" width="60px" style="border-radius: 50px;">
+                <p class="px-3" style="font-size:smaller">user</p>
+            </div>
+        </div>
+    </div> -->
+
+<!-- first post -->
+
+    {% for x in posts %}
+    <div class="card" style="width: 40%;margin-left: 20%;margin-top: 20px;">
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                  <tr>
+                    
+                    <th scope="col" style="width: 100px;"><img src="{{ x.profile.profile_pic.url }}" width="60px" style="border-radius: 50px;"></th>
+                    <th scope="col"><a href="{% url 'profile' x.user.id %}"><p>@ {{ x.user }}</p></a></th>
+                    <th scope="col" style="width: 50px; font-size: x-large; padding-bottom: 20px;"><i class="fas fa-tasks"></i></th>
+                  </tr>
+                </thead>
+            </table>
+            <a href="{% url 'post_detail' x.id %}"><img src="{{ x.post.url }}" width="250px"></a>
+            <table class="table" style="border-top: 1px solid rgb(105, 102, 102);">
+                <thead>
+                  <tr>
+                    <th scope="col" style="width:55px;font-size: x-large; padding-bottom: 20px;">
+                      <a href="{% url 'like_post' x.id %}"><i class="fal fa-heart"></i></a></th>
+                    <th scope="col" style="width:55px; font-size: x-large; padding-bottom: 20px;">
+                      <a href="{% url 'post_detail' x.id %}" ><i class="fas fa-comment-alt-lines"></i></a></th> 
+                    <th scope="col" style="font-size: x-large; padding-bottom: 20px;"><i class="fal fa-share"></i></th>
+
+                    <th scope="col" style="width: 50px; font-size: x-large; padding-bottom: 20px;"><i class="far fa-bookmark"></i></th>
+                  </tr>
+                </thead>
+            </table>
+            <p>@ {{ x.user }} | {{ x.caption }}</p>
+            <p class="sm">{{ x.like }} likes</p>            
+        </div>
+    </div>
+    {% endfor %}
+    
+
+<!-- post Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">post something</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form action="{% url 'upload_post' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="modal-body">
+              <label for="formFile" class="form-label">upload here</label>
+              <input class="form-control" name="post_pic" type="file" id="formFile">
+
+              <label for="exampleFormControlTextarea5" class="form-label">caption</label>
+              <textarea name="caption" class="form-control" style="max-height: 150px;" id="exampleFormControlTextarea5" rows="3"></textarea>                          
+            </div>
+            <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+              <button type="submit" class="btn btn-success ">Post</button>
+            </div>
+          </form>
+      </div>
+      </div>
+    </div>
+
+
+<!-- profile link -->
+    <div class="card" style="width: 30%;position: absolute;top: 30%;right: 6%;">
+        <table style="margin: 10px;">
+            <thead>
+              <tr>
+                <th scope="col" width="65px"> <img src="{{ profile.profile_pic.url }}" width="50px" style="border-radius: 50px;"></th>
+                <th scope="col">@ {{user}}</th>
+                <th scope="col"style="font-size:x-large"><a href="{% url 'signout' %}"><i class="fal fa-sign-out"></i></a></th>
+              </tr>
+            </thead>
+        </table>
+    </div>
+
+
+<!-- suggetions -->
+    <div class="card" style="width: 30%;position: absolute;top: 46%;right: 6%;align-items: center; padding: 20px;">
+
+        <p>people you may know</p>
+        {% for x in Not_following %}
+        <div class="card" style="width: 95%; margin: 5px;">
+            <table style="margin: 10px;">
+                <thead>
+                  <tr>
+                    <th scope="col" width="55px"> <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" width="30px" style="border-radius: 50px;"></th>
+                    <th scope="col">@ {{ x }}</th>
+                    <th scope="col" width="65px">
+                        <button class="btn btn-outline-secondary btn-sm">follow</button>
+                    </th>
+                  </tr>
+                </thead>
+            </table>
+        </div>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}
+

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+
+<div class="card" style="width: 60%;left: 20%; padding: 10px;margin: 50px;">
+    <h4>Sign Up</h1>
+    <div class="card" style="width:40%; padding: 20px;border: none;">
+        <img src="{% static 'images/login pic-crop.jpg' %}">
+    </div>
+    <div class="card m-3" style="width: 45%;left: 40%; padding: 10px;bottom: 350px;border: none;">
+        <div class="mb-3">
+            <form action="#" method="POST">
+                {% csrf_token %}
+                {% for x in messages %}
+                <p style="color: red;">*{{x}}</p>
+                {% endfor %}
+            <label for="exampleFormControlInput1" class="form-label">Email address</label>
+            <input type="email" name="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+            
+            <label for="exampleFormControlInput2" class="form-label">username</label>
+            <input type="text"  name="username" class="form-control" id="exampleFormControlInput2" placeholder="username">
+
+            <label for="exampleFormControlInput5" class="form-label">firstname</label>
+            <input type="text" name="firstname" class="form-control" id="exampleFormControlInput5" placeholder="firstname">
+
+            <label for="exampleFormControlInput6" class="form-label">lastname</label>
+            <input type="text" name="lastname" class="form-control" id="exampleFormControlInput6" placeholder="lastname">
+            
+            <label for="exampleFormControlInput3" class="form-label">password</label>
+            <input type="password" name="password1" class="form-control" id="exampleFormControlInput3" placeholder="password">
+
+            <label for="exampleFormControlInput4" class="form-label">repeat password</label>
+            <input type="password" name="password2" class="form-control" id="exampleFormControlInput4" placeholder="repeat password">
+
+            <button class="btn btn-sm btn-primary m-3" type="submit" style="margin: 10px;">Sign up</button>
+            </form>
+            <p>Already have an account? <a href="{% url 'signin' %}">signin</a></p>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="card" style="width: 80%;margin:30px;padding:10px;left: 100px;">
+      <h4 class="px-5 m-3">Settings page</h4>
+      <div class="card" style="width: 18rem;">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Edit profile</li>
+          <li class="list-group-item">Change Password</li>
+          <li class="list-group-item">Log out</li>
+        </ul>
+      </div>
+
+      <div class="card" style="width: 70%;left:30%;bottom: 125px;padding: 10px;">
+            <table style="margin: 10px;">
+                <thead>
+                  <tr>
+                    <th scope="col" width="150px"> <img src="{{ profile.profile_pic.url }}" width="100px" style="border-radius: 50px;"></th>
+                    <th scope="col">@ {{user}}</th>
+                  </tr>
+                </thead>
+            </table>
+            <form action="#" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+
+              <label for="formFile" class="form-label">Change your profile picture</label>
+              <input class="form-control" name="profile_pic" type="file" id="formFile">
+  
+              <!-- <label for="exampleFormControlInput1" class="form-label">Name</label>
+              <input type="text" name="name" class="form-control" id="exampleFormControlInput1">
+  
+              <label for="exampleFormControlInput2" class="form-label">User name</label>
+              <input type="text" name="username" class="form-control" id="exampleFormControlInput2">
+  
+              <label for="exampleFormControlInput3" class="form-label">Email address</label>
+              <input type="email" name="email" class="form-control" id="exampleFormControlInput3">
+  
+              <label for="exampleFormControlInput4" class="form-label">Phone number</label>
+              <input type="number" name="phonenumber" class="form-control" id="exampleFormControlInput4"> -->
+  
+              <label for="exampleFormControlTextarea5" class="form-label">Bio</label>
+              <textarea name="bio" class="form-control" style="max-height: 150px;" id="exampleFormControlTextarea5" rows="3" placeholder="{{profile.bio}}"></textarea>
+  
+              <label for="exampleFormControlInput6" class="form-label">Location</label>
+              <input type="text" name="location" class="form-control" id="exampleFormControlInput6" placeholder="{{profile.location}}">
+  
+              <button type="submit" class="btn btn-success m-3" style="width:150px">save</button>
+            </form>
+
+      </div>
+
+
+</div>
+
+
+
+{% endblock %}
+

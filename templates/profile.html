@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="card" style="margin: 10px;padding: 10px;">
+        <img src="{{ profile.profile_pic.url }}" width="150px" style="border-radius: 80px;margin: 50px;position: relative;left: 250px;top: 80px;">
+        <div class="card" style="width: 50%;left: 500px;bottom: 150px; padding: 20px;border: none;">
+            <table class="table table-borderless">
+                <thead>
+                    <tr style="font-size:x-large ;">
+                        <th>@ {{ profile.user }}</th>
+                        {% if user == profile.user %}
+                        <th><a href="{% url 'setting' %}" class="btn btn-outline-secondary btn-sm">Edit profile</a><span class="m-2"><i class="far fa-user-edit"></i></span></th>
+                        {% else %}
+                        <th><a href="{% url 'follow' profile.user.id %}" class="btn btn-outline-secondary btn-sm">Follow</a></th>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <td>Post <strong> {{post_count}}</strong></td>
+                        <td>Followers <strong>{{profile.follower_count}}</strong></td>
+                        <td>Folowing <strong>{{profile.following_count}}</strong></td>
+                    </tr>
+                </thead>
+            </table>
+            <div class="card-body">
+                <h4>{{ profile.full_name }}</h4>
+                <p>{{ profile.bio }}</p>
+                <p>{{ profile.location }}</p>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="container text-center">
+            <h3 class="m-3" style="color: rgb(158, 108, 42);">POST</h3>
+            <div class="container text-center my-3">
+                <div class="row">
+                    {% for x in posts %}
+                  <div class="col">
+                    
+                    <div class="card p-5" style="background-color: aquamarine;width: 250px;align-items: center;">
+                        <a href="{% url 'post_detail' x.id %}"><img width="200px" src="{{ x.post.url }}"></a>
+                    </div>
+                    
+                  </div>
+                  {% endfor %}
+              </div>
+        </div>
+
+         <div id="box" class="card" style="width: 80%; height: auto;left: 10%;display: none;background-color: rgb(161, 196, 196);">
+            <div class="card-body row text-center" style="width:fit-content ;">
+                {% for x in posts %}
+                <div class="col card px-3 m-3">
+                    <div style="width: 200px;min-height: 200px;">
+                    <a href="{% url 'post_detail' x.id %}" ><img width="200px" src="{{ x.post.url }}"></a>
+                    </div>
+                    <table class="table" style="border-top: 1px solid rgb(105, 102, 102);">
+                        <thead>
+                          <tr>
+                            <th scope="col" style="width:55px;font-size: x-large;">
+                              <a href="{% url 'like_post' x.id %}"><i style="font-size:large ;" class="fal fa-heart"></i></a>
+                              <p style="font-size:small ;">{{ x.like }} like</p></th>
+                            <th scope="col" style="width:55px; font-size: x-large;">
+                              <a href="{% url 'post_detail' x.id %}" ><i style="font-size:large ;" class="fas fa-comment-alt-lines"></i></a>
+                              <p style="font-size:small ;">1 comment</p></th> 
+                          </tr>
+                        </thead>
+                    </table>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+  
+
+{% endblock %}
